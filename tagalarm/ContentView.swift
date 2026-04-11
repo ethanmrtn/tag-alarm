@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import AlarmKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -18,7 +17,29 @@ struct ContentView: View {
     }
 }
 
+struct PreviewContainer {
+    static let container: ModelContainer = {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        do {
+            let container = try ModelContainer(for: Alarm.self, configurations: config)
+            
+            let sampleAlarms = [
+                Alarm(label: "Test Alarm", hour: 16, minute: 05, snoozable: false),
+                Alarm(label: "Morning Time!", hour: 7, minute: 15, snoozable: true)
+            ]
+            
+            for alarm in sampleAlarms {
+                container.mainContext.insert(alarm)
+            }
+            return container
+        } catch {
+            fatalError("Error creating preview container: \(error.localizedDescription)")
+        }
+    }()
+}
+
 #Preview {
     ContentView()
-        .modelContainer(for: Alarm.self, inMemory: true)
+        .modelContainer(PreviewContainer.container)
+        
 }
