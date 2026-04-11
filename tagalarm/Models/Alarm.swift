@@ -16,16 +16,16 @@ final class Alarm {
     // the label given to the alarm by the user
     var label: String
     // the hour that the alarm should go off
-    var hour: Int
+    var hour: String
     // the minute that the alarm should go off
-    var minute: Int
+    var minute: String
     // integer representation of the days that the alarm should repeat
     // 0 = sunday, 6 = saturday
     var recurrence: [Int]
     // whether or not the alarm is snoozable
     var snoozable: Bool
     
-    init(label: String, hour: Int, minute: Int, recurrence: [Int] = [], snoozable: Bool) {
+    init(label: String, hour: String, minute: String, recurrence: [Int] = [], snoozable: Bool) {
         self.id = UUID()
         self.label = label
         self.hour = hour
