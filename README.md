@@ -18,5 +18,3 @@ If the alarm is setup to use the NFC dismissal strategy, when the alarm is sound
 
 #### Backup Dismissal
 Allow I haven’t ever had it happen, it does seem quite possible to me that an NFC Tag could be dismissed, or an alarm could accidentally go off when you’re out of your house. I can’t think of anyway to accommodate this scenario without ruining my personal use case for this app, so my advice would be just turn off your phone and turn it back on.
-
-## How it works

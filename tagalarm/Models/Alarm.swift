@@ -15,21 +15,17 @@ final class Alarm {
     var id: UUID
     // the label given to the alarm by the user
     var label: String
-    // the hour that the alarm should go off
-    var hour: String
-    // the minute that the alarm should go off
-    var minute: String
-    // integer representation of the days that the alarm should repeat
-    // 0 = sunday, 6 = saturday
-    var recurrence: [Int]
+    // date object that's used to store the hour and minute the alarm should go off
+    var date: Date
+    // enum representation of the days that the alarm should repeat
+    var recurrence: Set<Weekday>
     // whether or not the alarm is snoozable
     var snoozable: Bool
     
-    init(label: String, hour: String, minute: String, recurrence: [Int] = [], snoozable: Bool) {
+    init(label: String, date: Date, recurrence: Set<Weekday> = [], snoozable: Bool) {
         self.id = UUID()
         self.label = label
-        self.hour = hour
-        self.minute = minute
+        self.date = date
         self.recurrence = recurrence
         self.snoozable = snoozable
     }

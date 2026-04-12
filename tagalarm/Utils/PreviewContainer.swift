@@ -15,8 +15,8 @@ struct PreviewContainer {
             let container = try ModelContainer(for: Alarm.self, configurations: config)
             
             let sampleAlarms = [
-                Alarm(label: "Test Alarm", hour: "16", minute: "05", snoozable: false),
-                Alarm(label: "Morning Time!", hour: "07", minute: "15", snoozable: true)
+                Alarm(label: "Test Alarm", date: Date(), snoozable: false),
+                Alarm(label: "Morning Time!", date: Date(), snoozable: true)
             ]
             
             for alarm in sampleAlarms {
