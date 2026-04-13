@@ -8,13 +8,30 @@
 import SwiftUI
 import SwiftData
 
-struct CreateAlarmView: View {
+struct UpsertAlarmView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @State private var date: Date = Date()
-    @State private var label: String = ""
-    @State private var isSnoozable: Bool = false
-    @State private var recurrence: Set<Weekday> = []
+    var existingAlarm: Alarm?
+    @State private var date: Date
+    @State private var label: String
+    @State private var isSnoozable: Bool
+    @State private var recurrence: Set<Weekday>
+    
+    init(existingAlarm: Alarm? = nil) {
+        if existingAlarm != nil {
+            self.existingAlarm = existingAlarm
+            self.date = existingAlarm!.date
+            self.label = existingAlarm!.label
+            self.isSnoozable = existingAlarm!.snoozable
+            self.recurrence = existingAlarm!.recurrence
+        } else {
+            self.existingAlarm = nil
+            self.date = Date()
+            self.label = ""
+            self.isSnoozable = false
+            self.recurrence = []
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -46,12 +63,19 @@ struct CreateAlarmView: View {
     }
     
     private func saveAlarm() {
-        let alarm = Alarm(label: label, date: date, recurrence: recurrence, snoozable: isSnoozable)
-        modelContext.insert(alarm)
+        if(existingAlarm != nil) {
+            existingAlarm?.label = label
+            existingAlarm?.date = date
+            existingAlarm?.recurrence = recurrence
+            existingAlarm?.snoozable = isSnoozable
+        } else {
+            let alarm = Alarm(label: label, date: date, recurrence: recurrence, snoozable: isSnoozable)
+            modelContext.insert(alarm)
+        }
     }
 }
 
 #Preview {
-    CreateAlarmView()
+    UpsertAlarmView()
         .modelContainer(PreviewContainer.container)
 }
