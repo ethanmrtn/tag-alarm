@@ -33,6 +33,13 @@ struct AlarmListView: View {
                         .padding(4)
                     }
                 }
+                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                    Button(role: .destructive){
+                        modelContext.container.mainContext.delete(alarm)
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
             .toolbar {
                 NavigationLink {
